@@ -48,7 +48,6 @@ const openModal = (plant) => {
 };
 
 closeModal.addEventListener("click", () => modal.classList.add("hidden"));
-
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.classList.add("hidden");
@@ -68,13 +67,14 @@ const displayPlants = (plants) => {
       <img src="${plant.image}" alt="${plant.name}" class="w-full h-40 object-cover rounded-lg mb-3"/>
       <h2 class="text-lg font-semibold mb-2 cursor-pointer text-blue-600 hover:underline name-click">${plant.name}</h2>
       <p class="text-gray-600 text-sm mb-2 line-clamp-2">${plant.description}</p>
-      <h4 class="text-sm text-gray-500 mb-1 border-2 border-sky-300 rounded-lg p-1">${plant.category}</h4>
+      <h4 class="text-sm text-green-500 mb-1 bg-[#DCFCE7] rounded-lg p-1">${plant.category}</h4>
       <h4 class="text-green-600 font-bold mb-3">Price: ${plant.price}৳</h4>
       <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full">Add to Cart</button>
     `;
 
     div.querySelector("button").addEventListener("click", () => {
       addToCart({ name: plant.name, price: plant.price });
+      alert(`"${plant.name}" has been added to the cart!`);
     });
 
     div.querySelector(".name-click").addEventListener("click", () => {
@@ -100,6 +100,14 @@ const displayCategoryBtn = (categories) => {
     });
 
     categoryContainer.appendChild(btn);
+  });
+
+  categoryContainer.addEventListener("click", (e) => {
+    const btns = categoryContainer.querySelectorAll("button");
+    btns.forEach((button) => button.classList.remove("bg-green-400"));
+    if (e.target.localName === "button") {
+      e.target.classList.add("bg-green-400");
+    }
   });
 };
 
